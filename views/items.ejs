@@ -1,0 +1,50 @@
+<% include partials/header.ejs %>
+
+<div class="container">
+	<header align="center" class="jumbotron">
+		<div class="container">
+			<h1 class="text-monospace">Welcome to <b>Carry-It!</b></h1>
+			<h6 class="text-monospace">A Crowdsourced Delivery Service</h6>
+			<a href="/items/new" class="btn btn-success btn-lg" role="button">Add New Package</a>
+			<br>
+			<br>
+			<div>
+				<a href="/myorders" class="btn btn-primary" role="button">Package I carried!</a>
+				<a href="/orders" class="btn btn-primary" role="button">Who has my Package?</a>
+				<a href="/myitems" class="btn btn-primary" role="button">Uploaded Packages</a>		
+			</div>
+		</div>	
+	</header>
+	<div class="row">
+		<% result.forEach(function(item){ %>
+		<div class="col-md-4 col-sm-6">
+			<div id="itemcard" class="card mb-3 card" style="max-width: 540px;">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<img src="assets/parcel-og.png" class="card-img">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title text-info"><%=item.i_name%></h5>
+							<p class="card-text text-danger">Deliver to: <%=item.i_to%></p>
+							<p class="card-text text-dark"><small>Uploaded By: </small><b><%=item.u_fname%></b></p>
+							<p class="card-text"><small class="text-muted"><%=item.i_date%></small></p>
+							<a href="/items/<%=item.item_id%>" class="btn btn-info" title="">More Info</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% }); %>
+		<div>
+		</div>
+	</div>
+</div>
+<% include partials/footer.ejs %>
+
+	<!--div>
+		< % for(let m of result){ %>
+		<li>< %= m %></li>
+		< % }%>
+
+	</div-->

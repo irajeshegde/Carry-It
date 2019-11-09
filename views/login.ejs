@@ -1,0 +1,38 @@
+<% include partials/header.ejs %>
+	<br><br>
+	<form action="/login" class="container" method="POST">
+		<br>
+		<h1>Login Form <i class="fa fa-sign-in"></i></h1>
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label for="exampleInputEmail1">Email</label>
+				<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your email" required>
+				<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label for="exampleInputPassword1">Password </label>
+				<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Your password" required>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group form-check">
+				<input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+				<label class="form-check-label" for="exampleCheck1"><small>I agree to terms and conditions</small></label>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<button type="submit" class="btn btn-info">Login</button>
+			</div>			
+		</div>
+	<br>
+	</form>
+<% include partials/footer.ejs %>
+<!-- 	<h1>Login Form</h1>
+		<form action="/login" method="POST">
+			<input type="text" name="email" placeholder="example@gmail.com" >
+			<input type="password" name="password" placeholder="Password" >
+			<input type="submit">
+</form> -->

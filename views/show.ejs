@@ -1,0 +1,48 @@
+<% include partials/header.ejs %>
+<br>
+<div align="center">
+	<h1> Carry this package! </h1>	
+</div>
+
+<form class="container" action="/orders" method="POST">
+	<br>
+	<div class="alert alert-success" role="alert">
+	  <h2 class="alert-heading"><%=result[0].i_name%></h2>
+	  <p>Details: <%=result[0].i_desc%></p>
+	  <hr>
+	  	<div class="form-group">
+			Item ID :
+			<input class="form-control col-md-1" type="number" name="itemid" value="<%=result[0].item_id%>" readonly>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<div class="alert alert-danger" role="alert">
+			  		Uploaded By: <%=result[0].u_fname%> <%=result[0].u_lname%>
+				</div>
+			</div>
+			<div class="form-group col-md-3">
+				<div class="alert alert-danger" role="alert">
+			  		To: <%=result[0].i_to%>
+				</div>	
+			</div>
+			<div class="form-group col-md-3">
+				<div class="alert alert-danger" role="alert">
+			  		From: <%=result[0].i_from%>
+				</div>	
+			</div>
+			<small class="form-group text-dark col-md-6">Created on: <%=result[0].i_date%></small>
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Can you carry it?</label>
+		<textarea class="form-control col-md-6" type="text" name="message" placeholder="Leave a message" rows="2"></textarea>
+	</div>
+	<div class="form-group">
+		<label>Enter estimated date by which you can deliver it</label>
+		<input class="form-control col-md-4" type="date" name="date">
+	</div>
+	<div class="form-group">
+		<button class="btn btn-primary btn-lg active"> Carry-It </button>
+	</div>
+</form>
+<% include partials/footer.ejs %>
