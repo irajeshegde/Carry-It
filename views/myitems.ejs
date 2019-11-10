@@ -1,5 +1,4 @@
 <% include partials/header.ejs %>
-
 <div class="container">
 	<header align="center" class="jumbotron">
 		<div class="container">
@@ -15,8 +14,13 @@
 			</div>
 		</div>	
 	</header>
+	<% if (result.length==0) { %>
+		<div id="empty" align="center" class="alert alert-danger" role="alert">
+			<h1 class="text-monospace">Oops! You haven't uploaded any items 🙃 </h1>
+		</div>
+	<% } %>
 	<div class="row">
-		<% result.forEach(function(item){ %>
+		<% result.forEach(function(item){ %>		
 		<div class="col-md-4 col-sm-6">
 			<div id="itemcard" class="card mb-3 card" style="max-width: 540px;">
 				<div class="row no-gutters">
@@ -36,8 +40,6 @@
 			</div>
 		</div>
 		<% }); %>
-		<div>
-	</div>
 	</div>
 </div>
 <% include partials/footer.ejs %>

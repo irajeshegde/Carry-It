@@ -39,9 +39,9 @@ mysql> CREATE TABLE items(
  i_from VARCHAR(50) NOT NULL, 
  i_type VARCHAR(40) NOT NULL, 
  i_date DATETIME DEFAULT CURRENT_TIMESTAMP, 
- i_status VARCHAR(10) NOT NULL, 
+ i_status VARCHAR(10) NOT NULL SET DEFAULT "CREATED",
  customer_id INT(255),
- FOREIGN KEY(customer_id) REFERENCES users(user_id)
+ FOREIGN KEY(customer_id) REFERENCES users(user_id) ON DELETE CASCADE
  )ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
  Query OK, 0 rows affected, 3 warnings (0.02 sec)
 
@@ -63,12 +63,14 @@ mysql> DESC items;
 
 
 mysql> CREATE TABLE orders(
-    -> order_id INT(255) AUTO_INCREMENT PRIMARY KEY,
-    -> item_id INT(255),
-    -> deliverer_id INT(255),
-    -> estimated_date DATE NOT NULL,
-    -> FOREIGN KEY(item_id) REFERENCES items(item_id),
-    -> FOREIGN KEY(deliverer_id) REFERENCES users(user_id))ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+    order_id INT(255) AUTO_INCREMENT PRIMARY KEY,
+    item_id INT(255),
+    deliverer_id INT(255),
+    estimated_date DATE NOT NULL,
+    message VARCHAR(100) NOT NULL,
+    FOREIGN KEY(item_id) REFERENCES items(item_id) ON DELETE CASCADE,
+    FOREIGN KEY(deliverer_id) REFERENCES users(user_id) ON DELETE CASCADE
+    )ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 Query OK, 0 rows affected, 4 warnings (0.03 sec)
 
 mysql> DESC orders;
@@ -114,11 +116,15 @@ create trigger update_after
        begin
        insert into trigger_items values(new.item_id, new.i_status);
        end; //
+delimiter ;
 
-20:48:18    create trigger update_after        after update on items        for each row        begin        insert into trigger_items values(new.item_id, new.i_status);        end;   
 0 row(s) affected   0.0086 sec
 
-mysql> delimiter ;
+mysql> CREATE TABLE trigger_items (
+    item_id INT(255),
+    order_status VARCHAR(10),
+    FOREIGN KEY(item_id) REFERENCES items(item_id) ON DELETE CASCADE);
+
 mysql> UPDATE items SET i_status = "DELIVERED" WHERE item_id=13;
 Query OK, 1 row affected (0.01 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
@@ -134,8 +140,8 @@ mysql> SELECT * FROM trigger_items;
 /*====================================== VIEWS ============================================*/
 
 mysql> CREATE VIEW userdetails AS
-    -> SELECT u_email, password
-    -> FROM users;
+     SELECT u_email, password
+     FROM users;
 Query OK, 0 rows affected (0.05 sec)
 
 mysql> SELECT * FROM userdetails;
@@ -150,8 +156,8 @@ mysql> SELECT * FROM userdetails;
 4 rows in set (0.01 sec)
 
 mysql> CREATE VIEW orderdetails AS
-    -> SELECT order_id, estimated_date
-    -> FROM orders;
+    SELECT order_id, estimated_date
+    FROM orders;
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> SELECT * FROM orderdetails;
@@ -182,3 +188,17 @@ mysql> SELECT * FROM itemdetails;
 My SQL workbench > Server > Performance reports 
 
 /*=========================================================================================*/
+
+mysql> SHOW tables;
++--------------------------+
+| Tables_in_carry_it_final |
++--------------------------+
+| itemdetails              |
+| items                    |
+| orderdetails             |
+| orders                   |
+| trigger_items            |
+| userdetails              |
+| users                    |
++--------------------------+
+7 rows in set (0.00 sec)

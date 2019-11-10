@@ -11,10 +11,15 @@
 			<div>
 				<a href="/myorders" class="btn btn-primary" role="button">Package I carried!</a>
 				<a href="/orders" class="btn btn-primary" role="button">Who has my Package?</a>
-				<a href="/myitems" class="btn btn-primary" role="button">Uploaded Packages</a>		
+				<a href="/myitems" class="btn btn-primary" role="button">Uploaded Packages</a>	
 			</div>
 		</div>	
 	</header>
+	<% if (result.length==0) { %>
+			<div id="empty" align="center" class="alert alert-danger" role="alert">
+				<h1 class="text-monospace">No items found !</h1>
+			</div>
+	<% } %>
 	<div class="row">
 		<% result.forEach(function(item){ %>
 		<div class="col-md-4 col-sm-6">
@@ -36,8 +41,6 @@
 			</div>
 		</div>
 		<% }); %>
-		<div>
-		</div>
 	</div>
 </div>
 <% include partials/footer.ejs %>

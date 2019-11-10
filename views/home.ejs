@@ -1,5 +1,10 @@
 <% include partials/header.ejs %>
 <!-- /header -->
+<% if (message.length>3) { %>
+	<script>
+	alert("<%=message%>");
+	</script>
+<% } %>
 <header id="header">
 	<div class="container">
 		<div id="text">

@@ -1,45 +1,51 @@
 <% include partials/header.ejs %>
+<br>
 <div class="container">
-		<br>
-		<% result.forEach(function(item){ %>
-		<br>
-		<div class="alert alert-success" role="alert">
-		  <h1 class="alert-heading">My Package Details</h1>
-		  <hr>
-		  <div class="form-row">
-		  	<div class="form-group col-md-4">
-		  		<h4 class="text-info"><span>OrderId : </span><%= item.order_id %></h4>
-		  	</div>
-		  	<div class="form-group col-md-4">
-		  		<h4 class="text-info"><span>ItemId : </span><%= item.item_id %></h4>
-		  	</div>
-		  </div>
-		  <div class="form-row">
-		  	<div class="form-group col-md-4">
-		  		<h2 class="text-info"><%= item.i_name %></h2>
-		  	</div>
-		  </div>
-		  <div class="form-row">
-		  	<div class="form-group col-md-10">
-		  		<h1 class="text-success"><span>Status : </span><%= item.i_status %></h1>
-		  	</div>
-		  </div>
-		  <hr>
-		  <div class="form-row">
-		  	<div class="form-group col-md-4">
-		  		<h5 class="text-danger"><span>Deliverer : </span><%=item.u_fname%> <%=item.u_lname%></h5>
-		  	</div>
-		  	<div class="form-group col-md-8">
-		  		<h5 class="text-primary"> <span>Contact : </span> <%= item.u_mobile %> <br><span>Email : </span><%= item.u_email%></h5>
-		  	</div>
-		  </div>
-		  <div class="form-row">
-			<div class="form-group col-md-10">
-		  		<h5 class="text-success"><span>Estimated date: </span><%= item.estimated_date %></h5>
-		  	</div>
-		  </div>
+	<% if (result.length==0) { %>
+		<div id="empty" align="center" class="alert alert-danger container" role="alert">
+			<h1 class="text-monospace">Nobody took your item yet !</h1>
 		</div>
-		<% }); %>
+	<% } %>
+	<br>
+	<% result.forEach(function(item){ %>
+	<br>
+	<div id="greencard" class="alert alert-success" role="alert">
+	  <h2 class="alert-heading">My Package Details</h2>
+	  <hr>
+	  <div class="form-row">
+	  	<div class="form-group col-md-4">
+	  		<p class="text-info"><span>OrderId : </span><%= item.order_id %></p>
+	  	</div>
+	  	<div class="form-group col-md-4">
+	  		<p class="text-info"><span>ItemId : </span><%= item.item_id %></p>
+	  	</div>
+	  </div>
+	  <div class="form-row">
+	  	<div class="form-group col-md-4">
+	  		<h4 class="text-info"><%= item.i_name %></h4>
+	  	</div>
+	  </div>
+	  <div class="form-row">
+	  	<div class="form-group col-md-10">
+	  		<h2 class="text-success"><span>Status : </span><%= item.i_status %></h2>
+	  	</div>
+	  </div>
+	  <hr>
+	  <div class="form-row">
+	  	<div class="form-group col-md-4">
+	  		<h6 class="text-danger"><span>Deliverer : </span><%=item.u_fname%> <%=item.u_lname%></h6>
+	  	</div>
+	  	<div class="form-group col-md-8">
+	  		<h6 class="text-primary"> <span>Contact : </span> <%= item.u_mobile %> <br><span>Email : </span><%= item.u_email%></h6>
+	  	</div>
+	  </div>
+	  <div class="form-row">
+		<div class="form-group col-md-10">
+	  		<h5 class="text-success"><span>Estimated date: </span><%= item.estimated_date %></h5>
+	  	</div>
+	  </div>
+	</div>
+	<% }); %>
 	</div>
 </div>
 <% include partials/footer.ejs %>

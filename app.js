@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '', // put your password
+  password : '123;',
   database : 'carry_it_final'
 });
 
@@ -32,7 +32,8 @@ app.use(session({
 
 // Homepage
 app.get("/", function(req, res){
-	res.render("home");
+	var message = "";
+	res.render("home", {message:message});
 });
 
 // Display all available items to everyone excluding my own items
@@ -43,17 +44,12 @@ app.get('/items', function(req, res) {
 			if(err){
 				console.log(err);
 			} else {
-				//console.log(results);
-				//var result = JSON.parse(JSON.stringify(results));
-				//console.log(result);
-				//let z = Object.keys(result).map((obj) => {
-					//let x = result[obj];
-					//return `${x.item_name}, ${x.user_id}`;})
 				res.render('items', {result: results});
 			}
 		});
 	} else {
-		res.send('Please login to view this page!');
+		var message ="Please login to view dashboard";
+		res.render('login', {message:message});
 	}
 });
 
@@ -173,7 +169,7 @@ app.get("/items/delete/:id", function(req, res){
 	}
 });
 
-
+// display my packages
 app.get("/myorders", function(req, res){
 	if (req.session.loggedin) {
 		var sql = 'SELECT * FROM orders AS o, items AS i, users AS u WHERE o.item_id=i.item_id AND deliverer_id = ? AND i.customer_id=u.user_id';
@@ -189,7 +185,7 @@ app.get("/myorders", function(req, res){
 	}
 });
 
-//UPDATE
+//UPDATE status
 app.post("/status/:id", function(req, res){
 	if (req.session.loggedin) {
 		var sql = 'UPDATE items SET i_status = "DELIVERED" WHERE item_id = ?';
@@ -207,6 +203,7 @@ app.post("/status/:id", function(req, res){
 	}
 });
 
+// display other packages
 app.get("/orders", function(req, res){
 	if (req.session.loggedin) {
 		var sql = 'SELECT * FROM orders AS o, items AS i, users AS u WHERE o.item_id=i.item_id AND o.deliverer_id=u.user_id AND o.item_id IN(SELECT item_id FROM items WHERE customer_id=?)';
@@ -222,6 +219,7 @@ app.get("/orders", function(req, res){
 	}
 });
 
+// create order and update status
 app.post("/orders", function(req, res){
 	var itemid  = req.body.itemid,
 		delivererid = req.session.userid,
@@ -250,20 +248,12 @@ app.post("/orders", function(req, res){
 
 //login GET
 app.get("/login", function(req, res){
-	res.render("login");
+	var message = ""
+	res.render("login", {message:message});
 });
 
 //login POST
 app.post('/login', function(req, res) {
-
-	/*if(debugMode){ 
-		req.session.loggedin = true;
-		req.session.email = 'rajeshhegde180@gmail.com';
-		req.session.userid = 1;
-		res.redirect('/items');
-		return;
-	} */
-
 	var email = req.body.email;
 	var password = req.body.password;
 	if (email && password) {
@@ -278,12 +268,15 @@ app.post('/login', function(req, res) {
 				})
 				res.redirect('/items');
 			} else {
-				res.send('Incorrect Username and/or Password!');
+				var message = "Incorrect email or password"
+				res.render('login', {message:message});
 			}			
 			
 		});
 	} else {
-		res.send('Please enter Username and Password!');
+		var message = "Enter both email and password"
+		res.render('login', {message:message});
+
 		
 	}
 });
@@ -317,7 +310,8 @@ app.get("/logout", function(req, res){
 	req.session.loggedin = false;
 	req.session.email = null;
 	req.session.userid = null;
-	res.redirect('/');		
+	var message = "Bye !"
+	res.render('home', {message:message});		
 	
 });
 
