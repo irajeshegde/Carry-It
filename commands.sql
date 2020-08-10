@@ -8,13 +8,7 @@ Database changed
 mysql> USE carry_it_final;
 Database changed
 
-mysql> CREATE TABLE users(
-    -> user_id INT(255) AUTO_INCREMENT PRIMARY KEY,
-    -> u_fname VARCHAR(40) NOT NULL,
-    -> u_lname VARCHAR(40),
-    -> u_email VARCHAR(50) UNIQUE NOT NULL,
-    -> u_mobile VARCHAR(10) NOT NULL,
-    -> password VARCHAR(40) NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+CREATE TABLE users( user_id INT(255) AUTO_INCREMENT PRIMARY KEY, u_fname VARCHAR(40) NOT NULL, u_lname VARCHAR(40), u_email VARCHAR(50) UNIQUE NOT NULL, u_mobile VARCHAR(10) NOT NULL, password VARCHAR(40) NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 Query OK, 0 rows affected, 2 warnings (0.02 sec)
 
 mysql> DESC users;
@@ -31,7 +25,7 @@ mysql> DESC users;
 6 rows in set (0.00 sec)
 
 
-mysql> CREATE TABLE items(
+CREATE TABLE items(
  item_id INT(255) AUTO_INCREMENT PRIMARY KEY,
  i_name VARCHAR(40) NOT NULL, 
  i_desc VARCHAR(100) NOT NULL, 
@@ -39,7 +33,7 @@ mysql> CREATE TABLE items(
  i_from VARCHAR(50) NOT NULL, 
  i_type VARCHAR(40) NOT NULL, 
  i_date DATETIME DEFAULT CURRENT_TIMESTAMP, 
- i_status VARCHAR(10) NOT NULL SET DEFAULT "CREATED",
+ i_status VARCHAR(10) NOT NULL DEFAULT "CREATED",
  customer_id INT(255),
  FOREIGN KEY(customer_id) REFERENCES users(user_id) ON DELETE CASCADE
  )ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
@@ -62,7 +56,7 @@ mysql> DESC items;
 9 rows in set (0.00 sec)
 
 
-mysql> CREATE TABLE orders(
+CREATE TABLE orders(
     order_id INT(255) AUTO_INCREMENT PRIMARY KEY,
     item_id INT(255),
     deliverer_id INT(255),
