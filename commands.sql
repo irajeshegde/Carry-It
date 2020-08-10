@@ -1,11 +1,11 @@
 
 /*==================================== DATABASE AND TABLES ==================================*/
 
-mysql> CREATE DATABASE carry_it_final;
+CREATE DATABASE carry_it_final;
 Query OK, 1 row affected (0.00 sec)
 
 Database changed
-mysql> USE carry_it_final;
+USE carry_it_final;
 Database changed
 
 CREATE TABLE users( user_id INT(255) AUTO_INCREMENT PRIMARY KEY, u_fname VARCHAR(40) NOT NULL, u_lname VARCHAR(40), u_email VARCHAR(50) UNIQUE NOT NULL, u_mobile VARCHAR(10) NOT NULL, password VARCHAR(40) NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
